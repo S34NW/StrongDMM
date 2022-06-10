@@ -117,6 +117,10 @@ func (m *Menu) Process() {
 			w.MenuItem("Open...", m.app.DoOpen).
 				Icon(icon.FolderOpen).
 				Shortcut(platform.KeyModName(), "O"),
+			w.Separator(),
+			w.MenuItem("New Map", m.app.DoCreateMap).
+				IconEmpty().
+				Enabled(m.app.HasLoadedEnvironment()),
 			w.Menu("Recent Maps", w.Layout{
 				w.Custom(func() {
 					for _, recentMap := range m.app.RecentMaps() {
@@ -190,10 +194,6 @@ func (m *Menu) Process() {
 				Icon(icon.Search).
 				Enabled(m.app.HasActiveMap()).
 				Shortcut(platform.KeyModName(), "F"),
-			w.Separator(),
-			w.MenuItem("Create Map", m.app.DoCreateMap).
-				IconEmpty().
-				Enabled(m.app.HasLoadedEnvironment()),
 		}),
 
 		w.Menu("View", w.Layout{
